@@ -8931,23 +8931,6 @@ keyboard.inline_keyboard = {
 end
 end
 
-if text == 'السورس' or text == 'سورس' or text == 'يا سورس' or text == 'source' then
-local Mostafa = (Redis:get(Revor.."Name:Bot") or "ريبورتر")
-local user_info = LuaTele.getUser(msg.sender.user_id)
-local first_name = user_info.first_name
-local RinkBot = msg.Name_Controller
-photo = "https://t.me/oooopppmmm/2"
-local Text = '*┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉\n❤️┏ • 𝙬𝙚𝙡𝙘𝙤𝙢𝙚 𝙩𝙤 𝙨𝙤𝙪𝙧𝙘𝙚 𝙧𝙚𝙗𝙤𝙧𝙩𝙚𝙧\n     ┊\n❤️┣ • 𝙩𝙝𝙚 𝙗𝙚𝙨𝙩 𝙨𝙤𝙪𝙧𝙘𝙚 𝙩𝙚𝙡𝙚𝙜𝙧𝙖𝙢\n     ┊\n❤️┗ • 𝙬𝙚𝙡𝙘𝙤𝙢𝙚 𝙩𝙤 𝙨𝙤𝙪𝙧𝙘𝙚 𝙧𝙚𝙗𝙤𝙧𝙩𝙚𝙧\n┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉\n*'
-keyboardd = {} 
-keyboard.inline_keyboard = {
-{
-{text = 'Channel Source ،', url = 't.me/uui9u'}, 
-},
-{
-local msg_id = msg.id/2097152/0.5
-https.request("https://api.telegram.org/bot"..Token..'/sendphoto?chat_id=' .. msg.chat_id .. '&photo=https://t.me/oooopppmmm/2/'..photo..'&caption=' .. URL.escape(Text).."&reply_to_message_id="..msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard)) 
-end
-
 if text == 'السورس' or text == 'سورس' or text == 'ياسورس'  then
 local reply_markup = LuaTele.replyMarkup{
 type = 'inline',
@@ -8991,7 +8974,7 @@ data = {
 {text = '{ 𝟓 }', data = msg.sender.user_id..'/help5'}, {text = '{ 6 }', data = msg.sender.user_id..'/help6'}, 
 },
 {
-{text = '{ 7 }', data = msg.sender.user_id..'/NoNextSeting'}, {text = '{ اوامر التعطيل / التفعيل }', data = msg.sender.user_id..'/listallAddorrem'}, 
+{text = '{ اوامر القفل / الفتح }', data = msg.sender.user_id..'/NoNextSeting'}, {text = '{ اوامر التعطيل / التفعيل }', data = msg.sender.user_id..'/listallAddorrem'}, 
 },
 {
 {text = '- قناة السورس', url = 't.me/uui9u'}, 
@@ -9128,6 +9111,68 @@ data = {
 }
 return LuaTele.sendText(msg_chat_id,msg_id,'✶︙عليك استخدام اوامر التحكم بالقوائم',"md",false, false, false, false, reply_markup)
 end
+
+if Redis:get(Revor.."youtube"..msg.sender_id.user_id..msg_chat_id) == "mp3" then
+Redis:del(Revor.."youtube"..msg.sender_id.user_id..msg_chat_id)
+local rep = msg.id/2097152/0.5
+local m = json:decode(https.request("https://api.telegram.org/bot"..Token.."/sendAnimation?chat_id="..msg_chat_id.."&animation=https://t.me/DEV_JABWA/171&reply_to_message_id="..rep)).result.message_id
+local se = http.request("https://api-jack.ml/api18.php?search="..URL.escape(text))
+local j = JSON.decode(se)
+local link = j.results[1].url
+local title = j.results[1].title 
+local title = title:gsub("/","-") 
+local title = title:gsub("\n","-") 
+local title = title:gsub("|","-") 
+local title = title:gsub("'","-") 
+local title = title:gsub('"',"-") 
+print(link)
+os.execute("yt-dlp "..link.." -f 251 -o '"..title..".mp3'")
+bot.sendAudio(msg_chat_id,msg_id,'./'..title..'.mp3',"["..title.."]("..link..")","md",nil,title)
+https.request("https://api.telegram.org/bot"..Token.."/deleteMessage?chat_id="..msg_chat_id.."&message_id="..m)
+Redis:del(Revor.."youtube"..msg.sender_id.user_id..msg_chat_id)
+sleep(2)
+os.remove(""..title..".mp3")
+end
+if Redis:get(Revor.."youtube"..msg.sender_id.user_id..msg_chat_id) == "mp4" then
+local rep = msg.id/2097152/0.5
+local m = json:decode(https.request("https://api.telegram.org/bot"..Token.."/sendAnimation?chat_id="..msg_chat_id.."&animation=https://t.me/DEV_JABWA/171&reply_to_message_id="..rep)).result.message_id
+local se = http.request("https://api-jack.ml/api18.php?search="..URL.escape(text))
+local j = JSON.decode(se)
+local link = j.results[1].url
+local title = j.results[1].title 
+local title = title:gsub("/","-") 
+local title = title:gsub("\n","-") 
+local title = title:gsub("|","-") 
+local title = title:gsub("'","-") 
+local title = title:gsub('"',"-") 
+os.execute("yt-dlp "..link.." -f 18 -o '"..title..".mp4'")
+bot.sendVideo(msg_chat_id,msg_id,'./'..title..'.mp4',"["..title.."]("..link..")","md") 
+https.request("https://api.telegram.org/bot"..Token.."/deleteMessage?chat_id="..msg_chat_id.."&message_id="..m)
+Redis:del(Revor.."youtube"..msg.sender_id.user_id..msg_chat_id)
+sleep(2)
+os.remove(""..title..".mp4")
+end
+if text == "يوتيوب" or text == 'اليوتيوب' or text == 'YouTube' or text == 'The Youtube' or text == 'Youtube' or text == 'youtube' or text == 'You Tube' or text == 'تحميل' or text == 'بحث' then
+if ChannelJoin(msg) == false then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = 'اضغط للاشتراك', url = 't.me/VC_NE '}, },}}
+return send(msg.chat_id,msg.id,'*\n 𖥔 عذرآ عليك الاشتراك في قناة السورس*',"md",false, false, false, false, reply_markup)
+end
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text = 'تحميل صوت 🎤', data = msg.sender_id.user_id..'/mp3'..msg_id}, {text = 'تحميل فيديو 🎬', data = msg.sender_id.user_id..'/mp4'..msg_id}, 
+},
+{
+{text = '• 𝑺𝒐𝑼𝒓𝑪𝒆 𝑲𝒊𝒏𝑮 •', url = "https://t.me/VC_NE"}
+},
+}
+}
+return send(msg_chat_id,msg_id, [[*
+𖥔 اختار طريقة التحميل
+*]],"md",false, false, false, false, reply_markup)
+end
+
 if text == 'تحديث' then
 if not msg.ControllerBot then 
 return LuaTele.sendText(msg_chat_id,msg_id,'\n*✶︙هاذا الامر يخص { '..Controller_Num(1)..' }* ',"md",true)  
