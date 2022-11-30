@@ -8944,7 +8944,7 @@ data = {
 }
 }
 return LuaTele.sendText(msg_chat_id,msg_id, [[
-*✶︙Source Revor *
+*✶︙Source Mark *
 ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉
 ]],"md",false, false, false, false, reply_markup)
 elseif text == 'الاوامر' then
