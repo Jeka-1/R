@@ -8911,30 +8911,42 @@ end
 Redis:del(Revor..'Revor:Texting:DevRevor')
 return LuaTele.sendText(msg_chat_id,msg_id,'✶︙ تم حذف كليشه المطور')
 end
-if text == 'المطور' or text == 'مطور'  or text == '•المطور •' then   
-local TextingDevRevor = Redis:get(Revor..'Texting:DevRevor')
+if text == 'المطور' or text == 'مطور' then
+local TextingDevRevor = Redis:get(Revor..'Revor:Texting:DevRevor')
 if TextingDevRevor then 
 return LuaTele.sendText(msg_chat_id,msg_id,TextingDevRevor,"md",true)  
 else
-local ban = LuaTele.getUser(msg.sender.user_id)
-local photo = LuaTele.getUserProfilePhotos(Sudo_Id)
-if photo.total_count > 0 then
-local ban = LuaTele.getUser(Sudo_Id)
-local T = '* ▸ 𝑫𝑬𝑽 𝑩𝑶𝑻 -› *['..ban.first_name..'](tg://user?id='..ban.id..')*\n*'
+local UserInfo = LuaTele.getUser(Sudo_Id)
+for Name_User in string.gmatch(UserInfo.first_name, "[^%s]+" ) do
+UserInfo.first_name = Name_User
+break
+end 
+return LuaTele.sendText(msg_chat_id,msg_id,'\n*✶︙مطور البوت : {*['..UserInfo.first_name..'](tg://user?id='..UserInfo.id..')*}*',"md",true)  
 keyboard = {} 
 keyboard.inline_keyboard = {
 {
 {text = ban.first_name,url = "https://t.me/"..ban.username..""}, 
 },
 }
-local msgg = msg_id/2097152/0.5
-https.request("https://api.telegram.org/bot"..Token.."/sendphoto?chat_id=" .. msg_chat_id .. "&photo="..photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id.."&caption=".. URL.escape(T).."&reply_to_message_id="..msgg.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
-else
-return LuaTele.sendText(msg_chat_id,msg_id,'\n*🤍 ▸ 𝑫𝑬𝑽 𝑩𝑶𝑻 -›•*['..ban.first_name..'](tg://user?id='..ban.id..')*•*',"md",true)  
-end
 end
 end
 
+if text == 'السورس' or text == 'سورس' or text == 'يا سورس' or text == 'source' then
+local Mostafa = (Redis:get(Revor.."Name:Bot") or "ريبورتر")
+local user_info = LuaTele.getUser(msg.sender.user_id)
+local first_name = user_info.first_name
+local RinkBot = msg.Name_Controller
+photo = "https://t.me/oooopppmmm/2"
+local Text = '*┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉\n❤️┏ • 𝙬𝙚𝙡𝙘𝙤𝙢𝙚 𝙩𝙤 𝙨𝙤𝙪𝙧𝙘𝙚 𝙧𝙚𝙗𝙤𝙧𝙩𝙚𝙧\n     ┊\n❤️┣ • 𝙩𝙝𝙚 𝙗𝙚𝙨𝙩 𝙨𝙤𝙪𝙧𝙘𝙚 𝙩𝙚𝙡𝙚𝙜𝙧𝙖𝙢\n     ┊\n❤️┗ • 𝙬𝙚𝙡𝙘𝙤𝙢𝙚 𝙩𝙤 𝙨𝙤𝙪𝙧𝙘𝙚 𝙧𝙚𝙗𝙤𝙧𝙩𝙚𝙧\n┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉\n*'
+keyboardd = {} 
+keyboard.inline_keyboard = {
+{
+{text = 'Channel Source ،', url = 't.me/uui9u'}, 
+},
+{
+local msg_id = msg.id/2097152/0.5
+https.request("https://api.telegram.org/bot"..Token..'/sendphoto?chat_id=' .. msg.chat_id .. '&photo=https://t.me/oooopppmmm/2/'..photo..'&caption=' .. URL.escape(Text).."&reply_to_message_id="..msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard)) 
+end
 
 if text == 'السورس' or text == 'سورس' or text == 'ياسورس'  then
 local reply_markup = LuaTele.replyMarkup{
@@ -8976,10 +8988,10 @@ data = {
 {text = '{ 𝟑 }', data = msg.sender.user_id..'/help3'}, {text = '{ 𝟒 }', data = msg.sender.user_id..'/help4'}, 
 },
 {
-{text = '{ 𝟓 }', data = msg.sender.user_id..'/help5'}, {text = '{ الالعاب }', data = msg.sender.user_id..'/help6'}, 
+{text = '{ 𝟓 }', data = msg.sender.user_id..'/help5'}, {text = '{ 6 }', data = msg.sender.user_id..'/help6'}, 
 },
 {
-{text = '{ اوامر القفل / الفتح }', data = msg.sender.user_id..'/NoNextSeting'}, {text = '{ اوامر التعطيل / التفعيل }', data = msg.sender.user_id..'/listallAddorrem'}, 
+{text = '{ 7 }', data = msg.sender.user_id..'/NoNextSeting'}, {text = '{ اوامر التعطيل / التفعيل }', data = msg.sender.user_id..'/listallAddorrem'}, 
 },
 {
 {text = '- قناة السورس', url = 't.me/uui9u'}, 
